@@ -33,9 +33,7 @@ export function AgentList(props: AgentListProps) {
           background: '#12181f',
         }}
       >
-        <span style={{ fontSize: '17px', fontWeight: '600', color: '#d7e4f0' }}>
-          CodeMatrix
-        </span>
+        <span style={{ fontSize: '17px', fontWeight: '600', color: '#d7e4f0' }}>CodeMatrix</span>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div
             style={{
@@ -94,11 +92,7 @@ export function AgentList(props: AgentListProps) {
               fontSize: '14px',
             }}
           >
-            {status === 'connected' ? (
-              <span>No active agents</span>
-            ) : (
-              <span>Connecting...</span>
-            )}
+            {status === 'connected' ? <span>No active agents</span> : <span>Connecting...</span>}
           </div>
         )}
 
@@ -117,7 +111,7 @@ export function AgentList(props: AgentListProps) {
         >
           This is an experimental feature.{' '}
           <a
-            href="https://github.com/johannesjo/parallel-code/issues"
+            href="https://github.com/NoahZhang/CodeMatrix/issues"
             target="_blank"
             rel="noopener noreferrer"
             style={{ color: '#2ec8ff' }}

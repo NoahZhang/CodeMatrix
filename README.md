@@ -36,7 +36,7 @@ Five agents working on five different features at the same time, all from the sa
 
 ## Features
 
-- **Multi-agent support** — Claude Code, Codex CLI, Gemini CLI, Aider, Amp, and custom agents
+- **Multi-agent support** — Claude Code, Codex CLI, Gemini CLI and custom agents
 - **Git isolation** — every task gets its own branch and worktree automatically
 - **Tiled panel layout** — see all tasks at once, drag to reorder
 - **Built-in diff viewer** — review changed files per task before merging
