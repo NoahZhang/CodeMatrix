@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="build/logo-text-squared.svg" alt="CodeMatrix" height="76">
-</p>
+<h1 align="center">CodeMatrix</h1>
 
 <p align="center">
   Run multiple AI coding agents without the chaos.
@@ -14,6 +12,10 @@
 </p>
 
 **CodeMatrix** gives Claude Code, Codex CLI, and Gemini CLI each their own git branch and worktree — automatically. No agents stepping on each other's code, no juggling terminals, no mental overhead. Just one clean interface where you can see everything, navigate fast, merge results when they're ready — and monitor it all from your phone.
+
+<p align="center">
+  <img src="docs/screenshots/code_matrix_glass.png" alt="CodeMatrix Glass Theme" width="720">
+</p>
 
 ## Why CodeMatrix?
 
@@ -43,7 +45,7 @@ Five agents working on five different features at the same time, all from the sa
 - **Keyboard-first** — every action has a shortcut, `Ctrl+/` shows them all
 - **Shell terminals** — per-task shells scoped to the worktree
 - **Direct mode** — work on the main branch without isolation when needed
-- **Themes** — Minimal, Graphite, Classic, Indigo, Ember, Glacier
+- **Themes** — Minimal, Graphite, Classic, Indigo, Ember, Glacier, Glass (transparent, macOS)
 - **State persistence** — picks up right where you left off across restarts
 - **macOS and Linux**
 
@@ -52,12 +54,14 @@ Five agents working on five different features at the same time, all from the sa
 ### Download
 
 Download the latest release for your platform:
+
 - **macOS** — `.dmg` (universal)
 - **Linux** — `.AppImage` or `.deb`
 
 ### Prerequisites
 
 Install at least one AI coding CLI:
+
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code)
 - [Codex CLI](https://github.com/openai/codex)
 - [Gemini CLI](https://github.com/google-gemini/gemini-cli)
@@ -77,19 +81,19 @@ Requires [Node.js](https://nodejs.org/) v18+ and [Rust](https://rustup.rs/) stab
 
 `Ctrl` = `Cmd` on macOS.
 
-| Shortcut | Action |
-|---|---|
-| `Ctrl+N` | New task |
-| `Ctrl+Enter` | Send prompt |
-| `Ctrl+Shift+M` | Merge task to main |
-| `Ctrl+Shift+P` | Push to remote |
-| `Ctrl+W` | Close focused terminal |
-| `Ctrl+Shift+W` | Close active task |
-| `Alt+Arrows` | Navigate between panels |
-| `Ctrl+B` | Toggle sidebar |
-| `Ctrl+Shift+T` | New shell terminal |
-| `Ctrl+,` | Settings |
-| `Ctrl+/` / `F1` | Show all shortcuts |
+| Shortcut        | Action                  |
+| --------------- | ----------------------- |
+| `Ctrl+N`        | New task                |
+| `Ctrl+Enter`    | Send prompt             |
+| `Ctrl+Shift+M`  | Merge task to main      |
+| `Ctrl+Shift+P`  | Push to remote          |
+| `Ctrl+W`        | Close focused terminal  |
+| `Ctrl+Shift+W`  | Close active task       |
+| `Alt+Arrows`    | Navigate between panels |
+| `Ctrl+B`        | Toggle sidebar          |
+| `Ctrl+Shift+T`  | New shell terminal      |
+| `Ctrl+,`        | Settings                |
+| `Ctrl+/` / `F1` | Show all shortcuts      |
 
 ## Acknowledgments
 

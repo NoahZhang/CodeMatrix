@@ -131,55 +131,52 @@ export function Sidebar() {
     return items.length;
   }
 
-  const handleTaskMouseDown = useCallback(
-    (e: MouseEvent, taskId: string, index: number) => {
-      if (e.button !== 0) return;
-      e.preventDefault();
-      const startX = e.clientX;
-      const startY = e.clientY;
-      let dragging = false;
+  const handleTaskMouseDown = useCallback((e: MouseEvent, taskId: string, index: number) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    const startX = e.clientX;
+    const startY = e.clientY;
+    let dragging = false;
 
-      function onMove(ev: MouseEvent) {
-        const dx = ev.clientX - startX;
-        const dy = ev.clientY - startY;
-        if (!dragging && Math.abs(dx) + Math.abs(dy) < DRAG_THRESHOLD) return;
+    function onMove(ev: MouseEvent) {
+      const dx = ev.clientX - startX;
+      const dy = ev.clientY - startY;
+      if (!dragging && Math.abs(dx) + Math.abs(dy) < DRAG_THRESHOLD) return;
 
-        if (!dragging) {
-          dragging = true;
-          setDragFromIndex(index);
-          document.body.classList.add('dragging-task');
-        }
-
-        const dropIdx = computeDropIndex(ev.clientY, index);
-        setDropTargetIndex(dropIdx);
+      if (!dragging) {
+        dragging = true;
+        setDragFromIndex(index);
+        document.body.classList.add('dragging-task');
       }
 
-      function onUp() {
-        window.removeEventListener('mousemove', onMove);
-        window.removeEventListener('mouseup', onUp);
+      const dropIdx = computeDropIndex(ev.clientY, index);
+      setDropTargetIndex(dropIdx);
+    }
 
-        if (dragging) {
-          document.body.classList.remove('dragging-task');
-          const from = dragFromIndexRef.current;
-          const to = dropTargetIndexRef.current;
-          setDragFromIndex(null);
-          setDropTargetIndex(null);
+    function onUp() {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
 
-          if (from !== null && to !== null && from !== to) {
-            const adjustedTo = to > from ? to - 1 : to;
-            reorderTask(from, adjustedTo);
-          }
-        } else {
-          setActiveTask(taskId);
-          focusSidebar();
+      if (dragging) {
+        document.body.classList.remove('dragging-task');
+        const from = dragFromIndexRef.current;
+        const to = dropTargetIndexRef.current;
+        setDragFromIndex(null);
+        setDropTargetIndex(null);
+
+        if (from !== null && to !== null && from !== to) {
+          const adjustedTo = to > from ? to - 1 : to;
+          reorderTask(from, adjustedTo);
         }
+      } else {
+        setActiveTask(taskId);
+        focusSidebar();
       }
+    }
 
-      window.addEventListener('mousemove', onMove);
-      window.addEventListener('mouseup', onUp);
-    },
-    [],
-  );
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+  }, []);
 
   // Attach mousedown on task list container via native listener + register sidebar focus
   useEffect(() => {
@@ -281,9 +278,8 @@ export function Sidebar() {
   const accent = connected ? theme.success : theme.fgMuted;
 
   const confirmRemoveTaskCount = confirmRemove
-    ? [...taskOrder, ...collapsedTaskOrder].filter(
-        (tid) => tasks[tid]?.projectId === confirmRemove,
-      ).length
+    ? [...taskOrder, ...collapsedTaskOrder].filter((tid) => tasks[tid]?.projectId === confirmRemove)
+        .length
     : 0;
 
   return (
@@ -310,17 +306,9 @@ export function Sidebar() {
         }}
       >
         {/* Logo + collapse */}
-        <div
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-        >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '0 2px' }}>
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 64 64"
-              fill="none"
-              style={{ flexShrink: '0' }}
-            >
+            <svg width="24" height="24" viewBox="0 0 64 64" fill="none" style={{ flexShrink: '0' }}>
               {/* Outer circuit ring */}
               <circle cx="32" cy="32" r="29" stroke="#00cc66" strokeWidth="2.5" fill="none" />
               {/* Inner circuit ring */}
@@ -331,7 +319,17 @@ export function Sidebar() {
               <circle cx="3" cy="32" r="2" fill="#00cc66" />
               <circle cx="61" cy="32" r="2" fill="#00cc66" />
               {/* Letter M */}
-              <text x="32" y="40" textAnchor="middle" fill="#00cc66" fontSize="28" fontWeight="bold" fontFamily="monospace">M</text>
+              <text
+                x="32"
+                y="40"
+                textAnchor="middle"
+                fill="#00cc66"
+                fontSize="28"
+                fontWeight="bold"
+                fontFamily="monospace"
+              >
+                M
+              </text>
             </svg>
             <span
               style={{
@@ -347,8 +345,18 @@ export function Sidebar() {
           <div style={{ display: 'flex', gap: '6px' }}>
             <IconButton
               icon={
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                  <path d="M8 2.25a.75.75 0 0 1 .73.56l.2.72a4.48 4.48 0 0 1 1.04.43l.66-.37a.75.75 0 0 1 .9.13l.75.75a.75.75 0 0 1 .13.9l-.37.66c.17.33.31.68.43 1.04l.72.2a.75.75 0 0 1 .56.73v1.06a.75.75 0 0 1-.56.73l-.72.2a4.48 4.48 0 0 1-.43 1.04l.37.66a.75.75 0 0 1-.13.9l-.75.75a.75.75 0 0 1-.9.13l-.66-.37a4.48 4.48 0 0 1-1.04.43l-.2.72a.75.75 0 0 1-.73.56H6.94a.75.75 0 0 1-.73-.56l-.2-.72a4.48 4.48 0 0 1-1.04-.43l-.66.37a.75.75 0 0 1-.9-.13l-.75-.75a.75.75 0 0 1-.13-.9l.37-.66a4.48 4.48 0 0 1-.43-1.04l-.72-.2a.75.75 0 0 1-.56-.73V7.47a.75.75 0 0 1 .56-.73l.72-.2c.11-.36.26-.71.43-1.04l-.37-.66a.75.75 0 0 1 .13-.9l.75-.75a.75.75 0 0 1 .9-.13l.66.37c.33-.17.68-.31 1.04-.43l.2-.72a.75.75 0 0 1 .73-.56H8Zm-.53 3.22a2.5 2.5 0 1 0 1.06 4.88 2.5 2.5 0 0 0-1.06-4.88Z" />
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                  <circle cx="12" cy="12" r="3" />
                 </svg>
               }
               onClick={() => toggleSettingsDialog(true)}
@@ -455,9 +463,7 @@ export function Sidebar() {
                     textOverflow: 'ellipsis',
                   }}
                 >
-                  {isProjectMissing(project.id)
-                    ? 'Folder not found'
-                    : abbreviatePath(project.path)}
+                  {isProjectMissing(project.id) ? 'Folder not found' : abbreviatePath(project.path)}
                 </div>
               </div>
               <button
@@ -538,13 +544,7 @@ export function Sidebar() {
               width: '100%',
             }}
           >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              aria-hidden="true"
-            >
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
               <path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.22.78 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2A1.75 1.75 0 0 0 5 1H1.75Z" />
             </svg>
             Link Project
@@ -804,7 +804,12 @@ interface TaskRowProps {
   dropTargetIndex: number | null;
 }
 
-function TaskRow({ taskId, globalIndex: getGlobalIndex, dragFromIndex, dropTargetIndex }: TaskRowProps) {
+function TaskRow({
+  taskId,
+  globalIndex: getGlobalIndex,
+  dragFromIndex,
+  dropTargetIndex,
+}: TaskRowProps) {
   const task = useStore((s) => s.tasks[taskId]);
   const activeTaskId = useStore((s) => s.activeTaskId);
   const sidebarFocused = useStore((s) => s.sidebarFocused);

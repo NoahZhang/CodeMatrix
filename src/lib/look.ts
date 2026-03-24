@@ -1,4 +1,11 @@
-export type LookPreset = 'classic' | 'graphite' | 'indigo' | 'ember' | 'glacier' | 'minimal';
+export type LookPreset =
+  | 'classic'
+  | 'graphite'
+  | 'indigo'
+  | 'ember'
+  | 'glacier'
+  | 'minimal'
+  | 'glass';
 
 export interface LookPresetOption {
   id: LookPreset;
@@ -36,6 +43,11 @@ export const LOOK_PRESETS: LookPresetOption[] = [
     id: 'glacier',
     label: 'Glacier',
     description: 'Clean teal accents with softer depth',
+  },
+  {
+    id: 'glass',
+    label: 'Glass',
+    description: 'Transparent frosted glass (macOS)',
   },
 ];
 

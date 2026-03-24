@@ -25,6 +25,22 @@ pub fn run() {
             // Store app handle for global access (e.g. event emission)
             pty::init(app.handle().clone());
             plans::init(app.handle().clone());
+
+            // Apply macOS vibrancy — always on at the native level.
+            // Non-glass themes use opaque CSS backgrounds that cover it;
+            // the glass theme uses transparent backgrounds to reveal it.
+            #[cfg(target_os = "macos")]
+            {
+                if let Some(window) = app.get_webview_window("main") {
+                    let _ = window_vibrancy::apply_vibrancy(
+                        &window,
+                        window_vibrancy::NSVisualEffectMaterial::HudWindow,
+                        None,
+                        None,
+                    );
+                }
+            }
+
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![

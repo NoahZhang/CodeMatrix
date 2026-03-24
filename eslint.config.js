@@ -1,20 +1,13 @@
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
-import solid from 'eslint-plugin-solid/configs/typescript';
+import reactHooks from 'eslint-plugin-react-hooks';
 import * as tsParser from '@typescript-eslint/parser';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 
 export default [
   // Ignore build output
   {
-    ignores: [
-      'dist/**',
-      'dist-electron/**',
-      'release/**',
-      'node_modules/**',
-      // Build config excluded from electron tsconfig; not worth linting separately
-      'electron/vite.config.electron.ts',
-    ],
+    ignores: ['dist/**', 'dist-remote/**', 'release/**', 'node_modules/**'],
   },
 
   // Base JS recommended rules
@@ -23,25 +16,15 @@ export default [
   // TypeScript strict rules (non-type-checked to avoid perf cost in CI)
   ...tseslint.configs.strict,
 
-  // SolidJS-specific rules for TSX files
+  // React hooks rules for TSX files
   {
     files: ['src/**/*.{ts,tsx}'],
-    ...solid,
+    plugins: { 'react-hooks': reactHooks },
+    rules: reactHooks.configs.recommended.rules,
     languageOptions: {
       parser: tsParser,
       parserOptions: {
         project: './tsconfig.json',
-      },
-    },
-  },
-
-  // Electron backend files use Node tsconfig
-  {
-    files: ['electron/**/*.ts'],
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        project: './electron/tsconfig.json',
       },
     },
   },
@@ -80,7 +63,7 @@ export default [
     },
   },
 
-  // SolidJS store files use `produce()` which provides a mutable draft where
+  // Store files use immer's `produce()` which provides a mutable draft where
   // `delete` on dynamic keys is the intended API for removing store entries.
   {
     files: ['src/store/**/*.ts'],
