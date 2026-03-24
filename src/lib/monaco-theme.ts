@@ -105,7 +105,7 @@ function buildThemeData(c: PresetColors): monaco.editor.IStandaloneThemeData {
 }
 
 export function monacoThemeName(preset: LookPreset): string {
-  return `parallel-${preset}`;
+  return `matrix-${preset}`;
 }
 
 export function registerMonacoThemes(): void {
