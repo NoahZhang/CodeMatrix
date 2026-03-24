@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-electron
+dist-remote
+release
+.worktrees
+.idea
+.claude
+.DS_Store
+docs/plans
+src-tauri/target
+src-tauri/gen/schemas
