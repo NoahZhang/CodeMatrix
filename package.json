@@ -1,6 +1,6 @@
 {
   "name": "code-matrix",
-  "version": "0.6.0",
+  "version": "0.1.0",
   "description": "Run multiple AI coding agents side by side",
   "author": {
     "name": "Johannes Millan",

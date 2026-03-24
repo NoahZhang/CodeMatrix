@@ -1,6 +1,6 @@
 [package]
 name = "code-matrix"
-version = "0.6.0"
+version = "0.1.0"
 description = "CodeMatrix — run multiple AI coding agents side by side"
 authors = ["Johannes Millan <contact@super-productivity.com>"]
 edition = "2021"
